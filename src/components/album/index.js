@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Row from 'antd/es/row';
 import Col from 'antd/es/col';
 
@@ -41,6 +42,15 @@ class Album extends React.PureComponent {
       </Row>
     );
   }
+}
+
+Album.propTypes = {
+  columns: PropTypes.number.isRequired,
+  images: PropTypes.array,
+}
+
+Album.defaultProps = {
+  images: []
 }
 
 export default Album;

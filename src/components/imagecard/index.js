@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ImageCard extends React.PureComponent {
   render() {
@@ -9,6 +10,14 @@ class ImageCard extends React.PureComponent {
       </div>
     );
   }
+}
+
+ImageCard.propTypes = {
+  img_data: PropTypes.object.isRequired,
+}
+
+ImageCard.defaultProps = {
+  img_data: {}
 }
 
 export default ImageCard;

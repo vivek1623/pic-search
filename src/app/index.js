@@ -36,7 +36,7 @@ class App extends React.Component {
     const { columns, images } = this.state;
     return (
       <div className="App" style={{ paddingTop: `${APP_LAYOUT.APP_HEADER_HEIGHT}px` }}>
-        <Header />
+        <Header title='Search Photos' />
         <div className="sai-overflow-y-auto sai-pad-5" style={{ height: `calc(100vh - ${APP_LAYOUT.APP_HEADER_HEIGHT}px)` }}>
           <Album columns={columns} images={images} />
         </div>
