@@ -31,7 +31,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 
-### Task
+# Task
 
 Create a minimal react application as per the description and using the above interface as reference :
 
@@ -48,7 +48,7 @@ Use any UI framework e.g. bootstrap or material; ( a react specific version woul
 
 ## Please ensure that you complete (almost) all the must have requirements before submitting your code.
 
-# Bonus: 
+### Bonus: 
 - Make the search as efficient as possible with edge cases(0 results , More than x results )
 - Showing proper loaders and placeholders
 - Page should be responsive
@@ -56,11 +56,11 @@ Use any UI framework e.g. bootstrap or material; ( a react specific version woul
 - The search bar section should be fixed and overlayed on top of the photo results as you scroll down on the page
 
 
-# Resources:
+### Resources:
 - We recommend using https://github.com/facebook/create-react-app but not mandatory if you’re comfortable doing it any other way.
 - You are free to use any open source library or framework with react-js. You will also be judged based on your choice of libraries and patterns.
 
-# What We’re looking for:
+### What We’re looking for:
 - Code quality and style, good code should be self documenting with comments when necessary
 - Architectural decisions, keep it simple but extensible, not too much over-engineering
 - UX considerations, styles don't have be polished, but they should be reasonable and usable
@@ -68,6 +68,6 @@ Use any UI framework e.g. bootstrap or material; ( a react specific version woul
 - Performance, minimizing network requests.
 
 
-# Output:  
+### Output:  
 
 - Please commit on Github/Bitbucket public repo and deploy the application on a public link using any provider like heroku.com or netlify.com or any other platform of your choice.
