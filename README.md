@@ -37,16 +37,16 @@ Create a minimal react application as per the description and using the above in
 
 ## Must have (Requirements):
 
-A search bar that allows users to type into
-As they are typing, display results from https://www.flickr.com/services/api/flickr.photos.search.html
-As you scroll down to the bottom of the page, display more results if there are more results
-Save their search queries(in browser itself) so that the next time they come back, you can suggest search queries (like as a list/tags near the search bar)
-Clicking on a photo in the results will bring the photo up in a modal along with the caption if available.
-Use any UI framework e.g. bootstrap or material; ( a react specific version would be even better)
+- A search bar that allows users to type into
+- As they are typing, display results from https://www.flickr.com/services/api/flickr.photos.search.html
+- As you scroll down to the bottom of the page, display more results if there are more results
+- Save their search queries(in browser itself) so that the next time they come back, you can suggest search queries (like as a list/tags near the search bar)
+- Clicking on a photo in the results will bring the photo up in a modal along with the caption if available.
+- Use any UI framework e.g. bootstrap or material; ( a react specific version would be even better)
 
 
 
-## Please ensure that you complete (almost) all the must have requirements before submitting your code.
+ Please ensure that you complete (almost) all the must have requirements before submitting your code.
 
 ### Bonus: 
 - Make the search as efficient as possible with edge cases(0 results , More than x results )
