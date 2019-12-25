@@ -2,14 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Row from 'antd/es/row';
 import Col from 'antd/es/col';
+import Modal from 'antd/es/modal';
 
 import 'antd/es/row/style/css';
 import 'antd/es/col/style/css';
+import 'antd/es/modal/style/css';
 
 import ImageCard from '../imagecard';
 import ErrorBoundary from '../errorboundary';
 
 class Album extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      show_modal: false,
+      selected_image_data: null,
+    }
+  }
+
+  showImageInModal = selected_image_data => {
+    this.setState({
+      show_modal: true,
+      selected_image_data
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      show_modal: false,
+      selected_image_data: null
+    })
+  }
+
   renderAlbumColumns = () => {
     const { columns, images } = this.props;
     const node = []
@@ -22,7 +46,7 @@ class Album extends React.PureComponent {
                 return (
                   <ErrorBoundary key={image_data.id}>
                     <div className="sai-pad-5">
-                      <ImageCard img_data={image_data} />
+                      <ImageCard img_data={image_data} onClick={this.showImageInModal} />
                     </div>
                   </ErrorBoundary>
                 );
@@ -36,9 +60,16 @@ class Album extends React.PureComponent {
   }
 
   render() {
+    const { show_modal, selected_image_data } = this.state;
     return (
       <Row>
         {this.renderAlbumColumns()}
+        <Modal className="sai-modal" visible={show_modal} title={null} footer={null} maskClosable={false} onCancel={this.closeModal}>
+          {
+            show_modal &&
+            <ImageCard img_data={selected_image_data} />
+          }
+        </Modal>
       </Row>
     );
   }
