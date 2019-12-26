@@ -62,25 +62,18 @@ export const getImageUrl = photo => {
   return url;
 }
 
-const METHOD_TYPES = {
-  GET: 'GET',
+export const getDataFromLocalStorage = (key, undefined_return_value) => {
+  const data = localStorage.getItem(key);
+  return (data && data !== undefined ? JSON.parse(data) : undefined_return_value);
 };
 
-// https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=b45e6873d673e790d79a54d474c60a71&per_page=10&page=1&format=json&nojsoncallback=1
+export const setDataInLocalStorage = (key, data) => {
+  const json_data = JSON.stringify(data);
+  localStorage.setItem(key, json_data);
+};
 
-export const fetchDataAndProceed = (url, method, data, callback) => {
-  axios({
-    method,
-    params: method === METHOD_TYPES.GET ? data : {},
-    data: method !== METHOD_TYPES.GET ? data : {},
-    url,
-    baseURL: BASE_URL,
-    validateStatus: status => {
-      return ((status >= 200 && status < 300) || status === 412);
-    },
-  }).then(response => {
-    callback(false, response.data);
-  }).catch(error => {
-
+export const filterArrayBySearchText = (text, array) => {
+  return array.filter(item => {
+    return (item && item !== undefined && item.toLowerCase().indexOf(text.toLowerCase()) === 0);
   });
 };

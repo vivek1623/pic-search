@@ -11,7 +11,9 @@ class ImageCard extends React.PureComponent {
     const { img_data } = this.props;
     return (
       <div className="sai-pad-5 sai-bg-white sai-box-shadow-light sai-border-radius-3" onClick={this.onClickCard}>
-        <img className="sai-full-width" src={img_data.url} alt="" />
+        <div className="sai-card-loading">
+          <img className="sai-full-width" src={img_data.url} alt="" style={{minHeight:'150px'}} />
+        </div>
       </div>
     );
   }

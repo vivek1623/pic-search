@@ -14,9 +14,9 @@ class Loader extends React.PureComponent {
         {
           count.map(item => (
             <Col key={item} xs={24} sm={12} md={8} lg={6}>
-              <div className="sai-pad-10">
-                <div className="sai-bg-white sai-pad-10 sai-box-shadow-light sai-border-radius-3">
-                  <div className="sai-card-loading" style={{ height: '200px' }} />
+              <div className="sai-pad-5">
+                <div className="sai-bg-white sai-pad-5 sai-box-shadow-light sai-border-radius-3">
+                  <div className="sai-card-loading" style={{ height: '150px' }} />
                 </div>
               </div>
             </Col>
