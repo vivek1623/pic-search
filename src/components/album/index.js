@@ -36,15 +36,14 @@ class Album extends React.PureComponent {
 
   renderAlbumColumns = () => {
     const { columns, images } = this.props;
-    const node = []
-    for (let i = 0; i < columns; i++) {
-      node[i] = (
-        <Col key={i} xs={24} sm={12} md={8} lg={6}>
+    return columns.map((column, i) => {
+      return (
+        <Col key={column} xs={24} sm={12} md={8} lg={6}>
           {
             images.map((image_data, index) => {
-              if (index % columns === i)
+              if (index % columns.length === i)
                 return (
-                  <ErrorBoundary key={image_data.id}>
+                  <ErrorBoundary key={`${column}${index}${image_data.id}`}>
                     <div className="sai-pad-5">
                       <ImageCard img_data={image_data} onClick={this.showImageInModal} />
                     </div>
@@ -55,8 +54,7 @@ class Album extends React.PureComponent {
           }
         </Col>
       );
-    }
-    return node;
+    })
   }
 
   render() {
@@ -76,7 +74,7 @@ class Album extends React.PureComponent {
 }
 
 Album.propTypes = {
-  columns: PropTypes.number.isRequired,
+  columns: PropTypes.array.isRequired,
   images: PropTypes.array,
 }
 

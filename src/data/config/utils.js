@@ -1,3 +1,7 @@
+import axios from 'axios';
+
+import { BASE_URL } from './constants';
+
 export const checkDevice = {
   screen_data: function () {
     return (
@@ -42,13 +46,41 @@ export const checkDevice = {
 
 export const getColumns = screen_type => {
   switch (screen_type) {
-    case 'xs': return 1;
-    case 'sm': return 2;
-    case 'md': return 3;
-    case 'lg': return 4;
+    case 'xs': return ['c1'];
+    case 'sm': return ['c1', 'c2'];
+    case 'md': return ['c1', 'c2', 'c3'];
+    case 'lg':
     case 'xl':
     case 'xxl':
-    case 'xxxl': return 5;
-    default: return 1;
+    case 'xxxl': return ['c1', 'c2', 'c3', 'c4'];
+    default: return ['c1'];
   }
 }
+
+export const getImageUrl = photo => {
+  const url = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
+  return url;
+}
+
+const METHOD_TYPES = {
+  GET: 'GET',
+};
+
+// https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=b45e6873d673e790d79a54d474c60a71&per_page=10&page=1&format=json&nojsoncallback=1
+
+export const fetchDataAndProceed = (url, method, data, callback) => {
+  axios({
+    method,
+    params: method === METHOD_TYPES.GET ? data : {},
+    data: method !== METHOD_TYPES.GET ? data : {},
+    url,
+    baseURL: BASE_URL,
+    validateStatus: status => {
+      return ((status >= 200 && status < 300) || status === 412);
+    },
+  }).then(response => {
+    callback(false, response.data);
+  }).catch(error => {
+
+  });
+};

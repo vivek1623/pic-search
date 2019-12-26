@@ -1,3 +1,6 @@
+export const BASE_URL = 'https://www.flickr.com/services/rest/';
+export const API_KEY = 'b45e6873d673e790d79a54d474c60a71';
+
 export const APP_LAYOUT = { //in px
   APP_HEADER_HEIGHT: 100,
 };
