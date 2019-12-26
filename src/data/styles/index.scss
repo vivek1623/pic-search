@@ -1,4 +1,6 @@
 @import "./colors.scss";
+@import "./mixins.scss";
+@import "./keyframes.scss";
 
 html {
     font-size: 62.5%;
@@ -32,6 +34,14 @@ body {
     h1, h2, h3, h4, h5, h6 {
         margin: 0px;
     }
+}
+
+.sai-card-loading {
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(#999999, 0.1), rgba(#999999, 0.3), rgba(#999999, 0.1));
+  background-size: 600% 600%;
+
+  @include animation(sai-card-loading 1.5s ease infinite);
 }
 
 .sai-fixed {
@@ -123,6 +133,9 @@ body {
   padding: 5px;
 }
 
+.sai-mrgn-10 {
+  margin: 10px;
+}
 
 .sai-modal {
   top: 50px !important;

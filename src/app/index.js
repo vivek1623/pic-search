@@ -7,6 +7,7 @@ import { checkDevice, getColumns, getImageUrl } from '../data/config/utils';
 
 import Header from '../components/header';
 import Album from '../components/album';
+import Loader from '../components/loader';
 
 class App extends React.Component {
   state = {
@@ -16,15 +17,25 @@ class App extends React.Component {
     search_tag: '',
     next_page: 1,
     has_more_images: true,
+    loading: false,
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.setDeviceData);
-    this.fetchRecentImages();
+    this.startLoading();
+    this.fetchRecentImages(this.stopLoading);
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.setDeviceData);
+  }
+
+  startLoading = () => {
+    this.setState({ loading: true });
+  }
+
+  stopLoading = () => {
+    this.setState({ loading: false });
   }
 
   setDeviceData = () => {
@@ -38,7 +49,7 @@ class App extends React.Component {
     }, 300);
   }
 
-  fetchRecentImages = () => {
+  fetchRecentImages = (callback) => {
     const { next_page } = this.state;
     axios({
       method: 'GET',
@@ -47,6 +58,7 @@ class App extends React.Component {
         return ((status >= 200 && status < 300) || status === 412);
       },
     }).then(res => {
+      if (callback) callback();
       console.log('response', res.data);
       if (res.data.photos && res.data.photos.photo) {
         const images = this.convertInImagesList(res.data.photos.photo);
@@ -54,7 +66,7 @@ class App extends React.Component {
           return {
             images: [...state.images, ...images],
             has_more_images: res.data.photos.photo.length === 20,
-            next_page: next_page + 1
+            next_page: next_page + 1,
           }
         })
       }
@@ -78,22 +90,26 @@ class App extends React.Component {
   }
 
   render() {
-    const { columns, images, has_more_images } = this.state;
+    const { columns, images, has_more_images, loading } = this.state;
     return (
-      <div className="App" style={{ paddingTop: `${APP_LAYOUT.APP_HEADER_HEIGHT}px` }}>
+      <div style={{ paddingTop: `${APP_LAYOUT.APP_HEADER_HEIGHT}px` }}>
         <Header title='Search Photos' />
         <div id='albumContainer' className="sai-overflow-y-auto sai-pad-5" style={{ height: `calc(100vh - ${APP_LAYOUT.APP_HEADER_HEIGHT}px)` }}>
-          <InfiniteScroll
-            scrollableTarget="albumContainer"
-            dataLength={images.length} //This is important field to render the next data
-            hasMore={has_more_images}
-            loader={<h4>Loading...</h4>}
-            endMessage={<p className='sai-text-center'><b>Yay! You have seen it all</b></p>}
-            scrollThreshold={0.9}
-            next={this.fetchRecentImages}
-          >
-            <Album columns={columns} images={images} />
-          </InfiniteScroll>
+          {
+            loading ?
+              <Loader count={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} /> :
+              <InfiniteScroll
+                scrollableTarget="albumContainer"
+                dataLength={images.length} //This is important field to render the next data
+                hasMore={has_more_images}
+                loader={<Loader />}
+                endMessage={<div className='sai-text-center sai-pad-10'><b>Yay! You have seen it all</b></div>}
+                scrollThreshold={0.9}
+                next={this.fetchRecentImages}
+              >
+                <Album columns={columns} images={images} />
+              </InfiniteScroll>
+          }
         </div>
       </div>
     );
