@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import message from 'antd/es/message'
 
 import { APP_LAYOUT, API_KEY, LOCAL_STORAGE, PER_PAGE_COUNT } from '../data/config/constants';
 import { checkDevice, getColumns, getImageUrl, getDataFromLocalStorage, setDataInLocalStorage, filterArrayBySearchText } from '../data/config/utils';
+
+import 'antd/es/message/style/css';
 
 import Header from '../components/header';
 import Album from '../components/album';
@@ -40,6 +43,11 @@ class App extends React.Component {
     this.setState({ loading: false });
   }
 
+  showMessage = (type, msg) => {
+    const Message = message[type];
+    Message(msg);
+  };
+
   setDeviceData = () => {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -61,7 +69,6 @@ class App extends React.Component {
       },
     }).then(res => {
       if (callback) callback();
-      console.log('response', res.data);
       if (res.data.photos && res.data.photos.photo) {
         const images = this.convertInImagesList(res.data.photos.photo);
         this.setState(state => {
@@ -73,7 +80,7 @@ class App extends React.Component {
         })
       }
     }).catch(error => {
-
+      this.showMessage('error', 'unable to fetch images, something went wrong');
     });
   }
 
@@ -87,7 +94,6 @@ class App extends React.Component {
       },
     }).then(res => {
       if (callback) callback();
-      console.log('response', res.data);
       if (res.data.photos && res.data.photos.photo) {
         const images = this.convertInImagesList(res.data.photos.photo);
         this.setState(state => {
@@ -99,7 +105,7 @@ class App extends React.Component {
         })
       }
     }).catch(error => {
-
+      this.showMessage('error', 'unable to fetch images, something went wrong');
     });
   }
 
