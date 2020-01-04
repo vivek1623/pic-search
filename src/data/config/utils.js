@@ -1,7 +1,3 @@
-import axios from 'axios';
-
-import { BASE_URL } from './constants';
-
 export const checkDevice = {
   screen_data: function () {
     return (
