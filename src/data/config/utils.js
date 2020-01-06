@@ -73,3 +73,15 @@ export const filterArrayBySearchText = (text, array) => {
     return (item && item !== undefined && item.toLowerCase().indexOf(text.toLowerCase()) === 0);
   });
 };
+
+export const debounced = (func, delay) => {
+  let timerId;
+  return (...args) => {
+    if (timerId)
+      clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func(...args);
+      timerId = null;
+    }, delay);
+  }
+}
