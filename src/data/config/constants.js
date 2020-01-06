@@ -1,4 +1,4 @@
-export const API_KEY = '4adabc18bb64a9030673bce2524d6ed5';
+export const API_KEY = 'ff1630ffb64344feceb8a2c481fe45e8';
 
 export const PER_PAGE_COUNT = 10;
 
