@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import message from 'antd/es/message'
 
 import { APP_LAYOUT, API_KEY, LOCAL_STORAGE, PER_PAGE_COUNT } from '../data/config/constants';
-import { checkDevice, getColumns, getImageUrl, getDataFromLocalStorage, setDataInLocalStorage, filterArrayBySearchText } from '../data/config/utils';
+import { checkDevice, getColumns, getImageUrl, getDataFromLocalStorage, setDataInLocalStorage, filterArrayBySearchText, debounced } from '../data/config/utils';
 
 import 'antd/es/message/style/css';
 
@@ -13,17 +13,22 @@ import Album from '../components/album';
 import Loader from '../components/loader';
 
 class App extends React.Component {
-  state = {
-    images: [],
-    device_data: checkDevice.deviceStatus(),
-    columns: getColumns(checkDevice.deviceStatus().screen_type),
-    search_text: '',
-    next_page: 1,
-    has_more_images: true,
-    loading: false,
-    show_search_overlay: false,
-    search_keys: getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, [])
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: [],
+      device_data: checkDevice.deviceStatus(),
+      columns: getColumns(checkDevice.deviceStatus().screen_type),
+      search_text: '',
+      next_page: 1,
+      has_more_images: true,
+      loading: false,
+      show_search_overlay: false,
+      search_keys: getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, [])
+    };
+    this.debouncedImageSearch = debounced(this.onImageSearch, 1000);
   }
+
 
   componentDidMount() {
     window.addEventListener("resize", this.setDeviceData);
@@ -131,40 +136,34 @@ class App extends React.Component {
       has_more_images: true,
       show_search_overlay: false
     }, () => {
-      if (tag.length > 0) {
+      if (tag && tag.trim().length > 0) {
         this.fetchImagesBySearchTag(tag, this.stopLoading);
-        const search_keys = getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, []);
+        let search_keys = getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, []);
         const index = search_keys.findIndex(key => key === tag);
         if (index === -1) {
+          if (search_keys.length >= 10) {
+            search_keys = search_keys.slice(1);
+          }
           search_keys.push(tag);
           setDataInLocalStorage(LOCAL_STORAGE.SEARCH_KEY, search_keys);
         }
+      } else {
+        this.fetchRecentImages(this.stopLoading)
       }
     })
   }
 
   onChangeSearchText = event => {
     const search_text = event.target.value;
-    if (search_text.length === 0) {
-      this.setState({
-        search_text,
-        loading: true,
-        images: [],
-        next_page: 1,
-        has_more_images: true,
-        show_search_overlay: false,
-      }, () => {
-        this.fetchRecentImages(this.stopLoading)
-      })
-    } else {
-      const search_keys = getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, []);
-      const filterd_search_keys = filterArrayBySearchText(search_text, search_keys);
-      this.setState({
-        search_text,
-        search_keys: filterd_search_keys,
-        show_search_overlay: filterd_search_keys.length !== 0
-      })
-    }
+    const search_keys = getDataFromLocalStorage(LOCAL_STORAGE.SEARCH_KEY, []);
+    const filterd_search_keys = filterArrayBySearchText(search_text, search_keys);
+    this.setState({
+      search_text,
+      search_keys: filterd_search_keys,
+      show_search_overlay: filterd_search_keys.length !== 0
+    }, () => {
+      this.debouncedImageSearch(search_text);
+    })
   }
 
   onClickSearchKey = search_key => {
