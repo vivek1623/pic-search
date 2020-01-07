@@ -38,7 +38,7 @@ export const checkDevice = {
       ...this.screen_data()
     });
   }
-};
+}
 
 export const getColumns = screen_type => {
   switch (screen_type) {
@@ -61,18 +61,18 @@ export const getImageUrl = photo => {
 export const getDataFromLocalStorage = (key, undefined_return_value) => {
   const data = localStorage.getItem(key);
   return (data && data !== undefined ? JSON.parse(data) : undefined_return_value);
-};
+}
 
 export const setDataInLocalStorage = (key, data) => {
   const json_data = JSON.stringify(data);
   localStorage.setItem(key, json_data);
-};
+}
 
 export const filterArrayBySearchText = (text, array) => {
   return array.filter(item => {
     return (item && item !== undefined && item.toLowerCase().indexOf(text.toLowerCase()) === 0);
   });
-};
+}
 
 export const debounced = (func, delay) => {
   let timerId;
