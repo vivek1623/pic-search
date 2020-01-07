@@ -68,6 +68,6 @@ Create a minimal react application as per the description and using the above in
 - Performance, minimizing network requests.
 
 
-### Output:  
+# Output:  
 
-- Please commit on Github/Bitbucket public repo and deploy the application on a public link using any provider like heroku.com or netlify.com or any other platform of your choice.
+- this project is deployed on https://supply-ai-album.herokuapp.com/ 
