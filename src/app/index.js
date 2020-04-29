@@ -9,6 +9,7 @@ import { checkDevice, getColumns, getImageUrl, getDataFromLocalStorage, setDataI
 import 'antd/es/message/style/css';
 
 import Header from '../components/header';
+import Footer from '../components/footer';
 import Album from '../components/album';
 import Loader from '../components/loader';
 
@@ -212,6 +213,7 @@ class App extends React.Component {
               </InfiniteScroll>
           }
         </div>
+        <Footer/>
       </div>
     );
   }
