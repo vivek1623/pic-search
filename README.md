@@ -33,27 +33,21 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 # Task
 
-Create a minimal react application as per the description and using the above interface as reference :
+- create a form with 10-12 input fields. On Mobile screens the fields should show one below the other. On larger screens the fields should in multiple columns depending on the width of the screen.
+
+- Add canvas functions to the form. So a user is able to highlight a field (free form) or a rectangle / oval
 
 ## Must have (Requirements):
 
-- A search bar that allows users to type into
-- As they are typing, display results from https://www.flickr.com/services/api/flickr.photos.search.html
-- As you scroll down to the bottom of the page, display more results if there are more results
-- Save their search queries(in browser itself) so that the next time they come back, you can suggest search queries (like as a list/tags near the search bar)
-- Clicking on a photo in the results will bring the photo up in a modal along with the caption if available.
-- Use any UI framework e.g. bootstrap or material; ( a react specific version would be even better)
-
-
+- Form should work responsively on various browsers
 
  Please ensure that you complete (almost) all the must have requirements before submitting your code.
 
 ### Bonus: 
-- Make the search as efficient as possible with edge cases(0 results , More than x results )
+- Make the page as efficient as possible with edge cases
 - Showing proper loaders and placeholders
 - Page should be responsive
 - Feel free to any open source libraries
-- The search bar section should be fixed and overlayed on top of the photo results as you scroll down on the page
 
 
 ### Resources:
@@ -70,4 +64,4 @@ Create a minimal react application as per the description and using the above in
 
 # Output:  
 
-- this project is deployed on https://supply-ai-album.herokuapp.com/ 
+- this project is deployed on 
