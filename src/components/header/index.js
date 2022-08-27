@@ -23,7 +23,7 @@ class Header extends React.PureComponent {
       <div className='sai-fixed sai-t-0 sai-l-0 sai-r-0 sai-bg-header sai-box-shadow sai-overflow-y-hidden' style={{ height: `${APP_LAYOUT.APP_HEADER_HEIGHT}px` }}>
         <Row>
           <Col xs={{ span: 20, offset: 2 }} sm={{ span: 12, offset: 6 }} md={{ span: 8, offset: 8 }} className='sai-t-pad-10'>
-            <h2 className='sai-font-bold sai-text-center sai-font-white sai-b-mrgn-10'>{title}</h2>
+            <h1 className='sai-font-bold sai-text-center sai-font-white sai-b-mrgn-10'>{title}</h1>
             <Dropdown
               visible={show_search_overlay}
               overlay={
